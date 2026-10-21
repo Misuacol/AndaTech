@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "412335720223-bjuc5rmap6g462jp200fb3vd3kh2sb87.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.andatech",
+            "certificate_hash": "42afc0ccc22b3a1fd390e6f39fa706d4d64dd7bd"
+          }
+        },
+        {
           "client_id": "412335720223-r5170msju5b0ibe5nf93e4274dtcosaj.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
