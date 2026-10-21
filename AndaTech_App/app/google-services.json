@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "412335720223",
+    "project_id": "andatech-7c91c",
+    "storage_bucket": "andatech-7c91c.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:412335720223:android:c1306a2b12e8624d06922a",
+        "android_client_info": {
+          "package_name": "com.example.andatech"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "412335720223-r5170msju5b0ibe5nf93e4274dtcosaj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.andatech",
+            "certificate_hash": "002f581344dc69e83505856ac88c3161250e9666"
+          }
+        },
+        {
+          "client_id": "412335720223-j7c070ffn2e89i9fju4g43t65sqs1og0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCGpWKKJhr-hfrFxyMKLZoKWvCs1XRMJ2U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "412335720223-j7c070ffn2e89i9fju4g43t65sqs1og0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
