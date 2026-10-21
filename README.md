@@ -26,12 +26,17 @@ AndaTech/                 <-- Carpeta raíz (aquí inicializas Git)
     └── app/                      <-- Módulo principal de la aplicación
         ├── .gitignore
         ├── build.gradle.kts
+        ├── google-services.json 
         └── src/                  <-- Tu código y diseño
             ├── main/
             │   ├── AndroidManifest.xml               <-- Permisos de la App
             │   ├── java/com/example/andatech/        <-- Código Java
+            |   │   └── LoginActivity.java                <-- Login con Firebase
+            |   │   └── MainActivity.java                 <-- Página principal de la app
             │   └── res/
             │       ├── layout/                       <-- Diseños Visuales (.xml)
+            |       │   └── activity_main.xml             <-- Diseños página principal de la app
+            |       │   └── tarjeta_andador.xml           <-- tarjeta para RecyclerView
             │       ├── drawable/                     <-- Gráficos e Imágenes
             │       └── values/                       <-- Valores Estáticos
             └── test/
