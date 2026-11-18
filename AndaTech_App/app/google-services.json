@@ -22,6 +22,14 @@
           }
         },
         {
+          "client_id": "412335720223-or2d8161led3fv2jjc2p8bon6vng8bad.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.andatech",
+            "certificate_hash": "efc99201a9a0c3d1f4cdde55c7645bb5b9ddcbaa"
+          }
+        },
+        {
           "client_id": "412335720223-r5170msju5b0ibe5nf93e4274dtcosaj.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
