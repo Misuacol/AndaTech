@@ -44,6 +44,7 @@
                 android:id="@+id/menu_acerca_de"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:onClick="enviarAcercaDe"
                 android:padding="8dp"
                 android:text="ACERCA DE"
                 android:textStyle="bold" />
