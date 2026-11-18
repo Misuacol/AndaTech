@@ -1,95 +1,79 @@
 package com.example.andatech;
 
+import static androidx.core.content.ContextCompat.startActivity;
+
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class PerfilActivity extends AppCompatActivity {
-
-    private TextView tvNombre, tvCorreo, tvTelefono, tvUid, tvProveedores;
-    private ImageView ivFotoPerfil;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_perfil);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.perfil), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+        setContentView(R.layout.pagina_perfil);
 
-        tvNombre = findViewById(R.id.tvNombre);
-        tvCorreo = findViewById(R.id.tvCorreo);
-        tvTelefono = findViewById(R.id.tvTelefono);
-        tvUid = findViewById(R.id.tvUid);
-        tvProveedores = findViewById(R.id.tvProveedores);
-        ivFotoPerfil = findViewById(R.id.ivFotoPerfil);
+    // Obtener el usuario conectado
+    FirebaseUser usuario = FirebaseAuth.getInstance().getCurrentUser();
 
-        FirebaseUser usuario = FirebaseAuth.getInstance().getCurrentUser();
+        if(usuario !=null) {
 
-        if (usuario != null) {
-            String nombre = usuario.getDisplayName();
-            String correo = usuario.getEmail();
-            String telefono = usuario.getPhoneNumber();
-            String uid = usuario.getUid();
-            Uri urlFoto = usuario.getPhotoUrl();
-            if (urlFoto != null) {
-                Glide.with(this)
-                        .load(urlFoto)
-                        .circleCrop() // Corta la foto en forma de círculo estético
-                        .placeholder(android.R.drawable.sym_def_app_icon) // Icono por defecto mientras carga
-                        .error(android.R.drawable.sym_def_app_icon)       // Icono si falla la carga
-                        .into(ivFotoPerfil);
-            }
+        String nombre = usuario.getDisplayName();
+        String correo = usuario.getEmail();
+        String telefono = usuario.getPhoneNumber();
+        Uri urlFoto = usuario.getPhotoUrl();
+        String uid = usuario.getUid();
 
-            StringBuilder proveedores = new StringBuilder();
-            if (usuario.getProviderData() != null) {
-                for (int n = 0; n < usuario.getProviderData().size(); n++) {
-                    proveedores.append(usuario.getProviderData().get(n).getProviderId());
-                    if (n < usuario.getProviderData().size() - 1) {
-                        proveedores.append(", ");
-                    }
-                }
-            }
+        // Mostrar nombre
+        TextView tvNombre = findViewById(R.id.perfilNombre);
+        tvNombre.setText(nombre != null ? nombre : "No disponible");
 
-            tvNombre.setText(nombre != null && !nombre.isEmpty() ? nombre : "Sin nombre");
-            tvCorreo.setText(correo != null ? correo : "Sin correo");
-            tvTelefono.setText(telefono != null && !telefono.isEmpty() ? telefono : "No registrado");
-            tvUid.setText(uid);
-            tvProveedores.setText(proveedores.toString());
+        // Mostrar correo
+        TextView tvCorreo = findViewById(R.id.perfilCorreo);
+        tvCorreo.setText(correo != null ? correo : "No disponible");
+
+        // Mostrar teléfono
+        TextView tvTelefono = findViewById(R.id.perfilTelefono);
+        tvTelefono.setText(telefono != null ? telefono : "No disponible");
+
+        // Mostrar UID
+        TextView tvUid = findViewById(R.id.perfilUid);
+        tvUid.setText(uid);
+
+        // Mostrar foto de perfil
+        ImageView ivFotoPerfil = findViewById(R.id.perfilFoto);
+        if (urlFoto != null) {
+            Glide.with(this)
+                   .load(urlFoto)
+                   .circleCrop()
+                   .into(ivFotoPerfil);
         }
 
-        TextView acercaDe = findViewById(R.id.menu_acerca_de);
-        acercaDe.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(PerfilActivity.this, AcercaDeActivity.class);
-                startActivity(intent);
-            }
-        });
+    } else {
+        volverAlLogin();
+    }
 
-        TextView inicio = findViewById(R.id.menu_andadores);
-        inicio.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(PerfilActivity.this, MainActivity.class);
-                startActivity(intent);
-            }
+        // Botón cerrar sesión
+        TextView btnCerrarSesion = findViewById(R.id.btnCerrarSesion);
+
+        btnCerrarSesion.setOnClickListener(v -> {
+            FirebaseAuth.getInstance().signOut();
+            volverAlLogin();
         });
+    }
+    private void volverAlLogin() {
+        Intent intent = new Intent(PerfilActivity.this, LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        finish();
     }
 }

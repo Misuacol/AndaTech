@@ -45,6 +45,5 @@ dependencies {
     implementation(platform("com.google.firebase:firebase-bom:35.0.2"))
     implementation("com.firebaseui:firebase-ui-auth:9.1.1")
     implementation("com.google.android.gms:play-services-maps:19.0.0")
-    implementation ("com.github.bumptech.glide:glide:4.16.0")
-    annotationProcessor ("com.github.bumptech.glide:compiler:4.16.0")
+    implementation("com.github.bumptech.glide:glide:4.16.0")
 }

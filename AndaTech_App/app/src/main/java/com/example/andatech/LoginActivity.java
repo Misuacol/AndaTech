@@ -2,6 +2,9 @@ package com.example.andatech;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,7 +24,37 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        login();
+        setContentView(R.layout.pagina_login);
+
+        // Conectar los botones
+        Button btnIniciarSesion = findViewById(R.id.loginBtnIniciarSesion);
+        Button btnGoogle = findViewById(R.id.loginBtnIniciarSesionGoogle);
+
+        // Conectar los campos
+        EditText correo = findViewById(R.id.loginCorreo);
+        EditText contrasena = findViewById(R.id.loginContraseña);
+
+        // Inicio de sesión con correo
+        btnIniciarSesion.setOnClickListener(v -> {
+            iniciarSesionCorreo(correo.getText().toString().trim(),
+                    contrasena.getText().toString());
+        });
+
+        // Inicio de sesión con Google
+        btnGoogle.setOnClickListener(v -> login());
+
+        TextView irRegistro = findViewById(R.id.loginIrRegistro);
+
+        irRegistro.setOnClickListener(v -> {
+            Intent intent = new Intent(this, RegistroActivity.class);
+            startActivity(intent);
+        });
+        //para que si ya has iniciado sesión te lleve directamente a la página de inicio
+        FirebaseUser usuario = FirebaseAuth.getInstance().getCurrentUser();
+
+        if (usuario != null) {
+            login();
+        }
     }
 
     private void login() {
@@ -32,6 +65,7 @@ public class LoginActivity extends AppCompatActivity {
                 Intent i = new Intent(this, MainActivity.class);
                 i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(i);
+
             } else {
                 usuario.sendEmailVerification().addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
@@ -43,11 +77,58 @@ public class LoginActivity extends AppCompatActivity {
                 FirebaseAuth.getInstance().signOut();
             }
         } else {
-            List<AuthUI.IdpConfig> providers = Arrays.asList(new AuthUI.IdpConfig.EmailBuilder().build(), new AuthUI.IdpConfig.GoogleBuilder().build());
+
+            List<AuthUI.IdpConfig> providers = Arrays.asList(
+                    new AuthUI.IdpConfig.GoogleBuilder().build()
+            );
             startActivityForResult(AuthUI.getInstance().createSignInIntentBuilder().setAvailableProviders(providers).build(), RC_SIGN_IN);
         }
     }
+    private void iniciarSesionCorreo(String correo, String contrasena) {
 
+        if (correo.isEmpty() || contrasena.isEmpty()) {
+            Toast.makeText(this,
+                    "Introduce el correo y la contraseña",
+                    Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        FirebaseAuth.getInstance()
+                .signInWithEmailAndPassword(correo, contrasena)
+                .addOnCompleteListener(this, task -> {
+
+                    if (task.isSuccessful()) {
+
+                        FirebaseUser usuario =
+                                FirebaseAuth.getInstance().getCurrentUser();
+
+                        if (usuario != null && usuario.isEmailVerified()) {
+
+                            Intent i = new Intent(this, MainActivity.class);
+                            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
+                                    Intent.FLAG_ACTIVITY_NEW_TASK |
+                                    Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(i);
+                            finish();
+
+                        } else if (usuario != null) {
+
+                            usuario.sendEmailVerification();
+
+                            Toast.makeText(this,
+                                    "Debes verificar tu correo electrónico",
+                                    Toast.LENGTH_LONG).show();
+
+                            FirebaseAuth.getInstance().signOut();
+                        }
+
+                    } else {
+                        Toast.makeText(this,
+                                "Correo o contraseña incorrectos",
+                                Toast.LENGTH_LONG).show();
+                    }
+                });
+    }
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

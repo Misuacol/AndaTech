@@ -1,6 +1,7 @@
 package com.example.andatech;
 
 import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 public class AcercaDeActivity extends AppCompatActivity {
