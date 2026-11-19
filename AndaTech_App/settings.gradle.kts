@@ -24,4 +24,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "AndaTech"
 include(":app")
- 
+include(":raspberry")
