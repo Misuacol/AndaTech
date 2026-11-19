@@ -1,20 +1,17 @@
 package com.example.andatech;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.Toolbar;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -30,23 +27,25 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-//        setContentView(R.layout.activity_main);
         setContentView(R.layout.pagina_inicio);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-
+        ImageView logo = findViewById(R.id.logo);
+        logo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
         FirebaseUser usuario = FirebaseAuth.getInstance().getCurrentUser();
 
         if (usuario != null) {
-            // esto iria mas en el perfil de usuario que es donde hay que poner lo datos
             String nombre = usuario.getDisplayName();
-            String correo = usuario.getEmail();
-            String telefono = usuario.getPhoneNumber();
-            Uri urlFoto = usuario.getPhotoUrl();
-            String uid = usuario.getUid();
             TextView Saludo = findViewById(R.id.textoSaludo);
 
             if (nombre != null && !nombre.trim().isEmpty()) {
@@ -55,34 +54,11 @@ public class MainActivity extends AppCompatActivity {
                 Saludo.setText("Buenas tardes");
             }
 
-            String proveedores = "";
-            for(int n=0; n<usuario.getProviderData().size(); n++){
-                proveedores += usuario.getProviderData().get(n).getProviderId() + ", ";
-            }
-            // Nombre.setText(nombre);
         } else {
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
             finish();
         }
-
-        TextView acercaDe = findViewById(R.id.menu_acerca_de);
-        acercaDe.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, AcercaDeActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        ImageView menuPerfil = findViewById(R.id.menu_perfil);
-        menuPerfil.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, PerfilActivity.class);
-                startActivity(intent);
-            }
-        });
 
         //recycler para mostrar las alertas en la pagina de inicio
         RecyclerView recyclerAlertas = findViewById(R.id.recyclerAlertas);

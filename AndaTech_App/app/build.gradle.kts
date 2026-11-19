@@ -37,6 +37,7 @@ dependencies {
     implementation(libs.appcompat)
     implementation(libs.cardview)
     implementation(libs.constraintlayout)
+    implementation(libs.firebase.database)
     implementation(libs.fragment)
     implementation(libs.material)
     testImplementation(libs.junit)

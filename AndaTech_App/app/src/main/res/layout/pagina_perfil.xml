@@ -8,36 +8,41 @@
     android:padding="24dp">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbarPerfil"
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:layout_marginTop="8dp"
         android:background="#071134"
         android:elevation="4dp"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" >
 
         <ImageView
+            android:id="@+id/logo"
             android:layout_width="110dp"
             android:layout_height="35dp"
-            android:contentDescription="Logo ANDATECH"
             android:scaleType="fitCenter"
-            android:src="@drawable/logo_blanco" />
-
-        <TextView
-            android:id="@+id/btnCerrarSesion"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end|center_vertical"
-            android:clickable="true"
-            android:focusable="true"
-            android:padding="12dp"
-            android:text="Cerrar sesión"
-            android:textColor="#FFFFFF"
-            android:textSize="14sp" />
+            app:srcCompat="@drawable/logo_blanco" />
 
     </androidx.appcompat.widget.Toolbar>
+
+    <Button
+        android:id="@+id/btnCerrarSesion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|center_vertical"
+        android:layout_marginStart="9dp"
+        android:layout_marginTop="32dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:padding="12dp"
+        android:text="Cerrar sesión"
+        android:textColor="#FFFFFF"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvCambiarContrasena" />
 
     <TextView
         android:id="@+id/perfilTitulo"
@@ -49,14 +54,14 @@
         android:textColor="#FFFFFF"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbarPerfil" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
     <TextView
         android:id="@+id/perfilNombre"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="NOmbre"
+        android:text="Nombre"
         android:textColor="#FFFFFF"
         app:layout_constraintStart_toStartOf="@+id/perfilTitulo"
         app:layout_constraintTop_toBottomOf="@+id/perfilTitulo" />
@@ -66,7 +71,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="COrreo"
+        android:text="Correo"
         android:textColor="#FFFFFF"
         app:layout_constraintStart_toStartOf="@+id/perfilNombre"
         app:layout_constraintTop_toBottomOf="@+id/perfilNombre" />
@@ -76,18 +81,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Telefono"
+        android:text="Teléfono"
         android:textColor="#FFFFFF"
         app:layout_constraintStart_toStartOf="@+id/perfilCorreo"
         app:layout_constraintTop_toBottomOf="@+id/perfilCorreo" />
 
     <TextView
-        android:id="@+id/perfilUid"
+        android:id="@+id/tvCambiarContrasena"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Uid"
-        android:textColor="#FFFFFF"
+        android:text="Cambiar contraseña"
+        android:textColor="#64B5F6"
         app:layout_constraintStart_toStartOf="@+id/perfilTelefono"
         app:layout_constraintTop_toBottomOf="@+id/perfilTelefono" />
 
@@ -98,7 +103,38 @@
         android:layout_marginTop="24dp"
         android:layout_marginEnd="24dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbarPerfil"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:srcCompat="@drawable/ic_perfil_blanco" />
+
+    <ImageView
+        android:id="@+id/editNombre"
+        android:layout_width="18dp"
+        android:layout_height="19dp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/perfilNombre"
+        app:layout_constraintStart_toEndOf="@+id/perfilNombre"
+        app:layout_constraintTop_toTopOf="@+id/perfilNombre"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/ic_perfil_blanco" />
+
+    <ImageView
+        android:id="@+id/editCorreo"
+        android:layout_width="18dp"
+        android:layout_height="19dp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/perfilCorreo"
+        app:layout_constraintStart_toEndOf="@+id/perfilCorreo"
+        app:layout_constraintTop_toTopOf="@+id/perfilCorreo"
+        app:srcCompat="@drawable/ic_perfil_blanco" />
+
+    <ImageView
+        android:id="@+id/editTelefono"
+        android:layout_width="18dp"
+        android:layout_height="19dp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/perfilTelefono"
+        app:layout_constraintStart_toEndOf="@+id/perfilTelefono"
+        app:layout_constraintTop_toTopOf="@+id/perfilTelefono"
         app:srcCompat="@drawable/ic_perfil_blanco" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

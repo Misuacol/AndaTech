@@ -9,6 +9,7 @@ fragment = "1.9.1"
 cardview = "1.0.0"
 constraintlayout = "2.2.2"
 activityKtx = "1.13.0"
+firebaseDatabase = "23.0.0"
 
 [libraries]
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -20,6 +21,7 @@ fragment = { group = "androidx.fragment", name = "fragment", version.ref = "frag
 cardview = { group = "androidx.cardview", name = "cardview", version.ref = "cardview" }
 constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 activity-ktx = { group = "androidx.activity", name = "activity-ktx", version.ref = "activityKtx" }
+firebase-database = { group = "com.google.firebase", name = "firebase-database", version.ref = "firebaseDatabase" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
