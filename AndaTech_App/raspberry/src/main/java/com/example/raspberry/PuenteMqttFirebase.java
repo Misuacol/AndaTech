@@ -60,7 +60,7 @@ public class PuenteMqttFirebase {
 
                         // Guardar alertas
                         if (json.optBoolean("es_alerta", false)) {
-                            String horaActual = new SimpleDateFormat("HH:mm").format(new Date());
+                            String horaActual = new SimpleDateFormat("dd/MM/yyyy HH:mm").format(new Date());
 
                             Map<String, Object> alerta = new HashMap<>();
                             alerta.put("titulo", json.optString("titulo", "Alerta"));
