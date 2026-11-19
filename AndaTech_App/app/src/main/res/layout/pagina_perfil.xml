@@ -38,6 +38,7 @@
         android:focusable="true"
         android:padding="12dp"
         android:text="Cerrar sesión"
+        style="@style/AppButton"
         android:textColor="#FFFFFF"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
